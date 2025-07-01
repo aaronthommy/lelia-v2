@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎹</text></svg>">
     <title>Lelia Hernández - Klavierunterricht in Hannover</title>
     <meta name="description" content="Klavierunterricht in Hannover für alle Altersstufen. Klassik, Rock, Pop - Ihre Lieblingssongs auf dem Klavier mit Lelia Hernández.">
     
@@ -424,6 +425,8 @@
             50% { transform: translateY(-10px); }
         }
 
+       
+
         /* Services Section */
         .services-grid {
             display: grid;
@@ -590,6 +593,53 @@
             transform: translateY(0);
         }
 
+        /* Custom Cursor Follower */
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, 
+                rgba(231, 76, 60, 0.3) 0%, 
+                rgba(44, 62, 80, 0.2) 50%, 
+                transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+        }
+
+        .cursor-follower.active {
+            opacity: 1;
+        }
+
+        .cursor-follower.hover-effect {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, 
+                rgba(231, 76, 60, 0.4) 0%, 
+                rgba(212, 175, 55, 0.3) 50%, 
+                transparent 70%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hide default cursor on interactive elements (desktop only) */
+        @media (hover: hover) and (pointer: fine) {
+            a, button, .service-card, .faq-question, .mobile-menu-btn, .cta-button, .submit-btn {
+                cursor: none;
+            }
+        }
+
+        /* Hide cursor follower on mobile devices */
+        @media (hover: none) or (pointer: coarse) {
+            .cursor-follower {
+                display: none;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -739,6 +789,9 @@
     </style>
 </head>
 <body>
+    <!-- Custom Cursor Follower -->
+    <div class="cursor-follower" id="cursorFollower"></div>
+
     <!-- Header -->
     <header id="header">
         <nav>
@@ -792,8 +845,8 @@
     <section id="services">
         <div class="fade-in">
             <h2 class="section-title">Mein Unterrichtsangebot</h2>
-            
-        
+    
+
             <div class="services-grid">
                 <div class="service-card pricing floating">
                     <div class="service-icon">🎹</div>
@@ -968,6 +1021,59 @@
     </footer>
 
     <script>
+        // Custom Cursor Follower
+        const cursorFollower = document.getElementById('cursorFollower');
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            if (!cursorFollower.classList.contains('active')) {
+                cursorFollower.classList.add('active');
+            }
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursorFollower.classList.remove('active');
+        });
+
+        // Show cursor when entering window
+        document.addEventListener('mouseenter', () => {
+            cursorFollower.classList.add('active');
+        });
+
+        // Smooth cursor following animation
+        function animateCursor() {
+            const speed = 0.15;
+            cursorX += (mouseX - cursorX) * speed;
+            cursorY += (mouseY - cursorY) * speed;
+            
+            cursorFollower.style.left = cursorX + 'px';
+            cursorFollower.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .service-card, .faq-question, .mobile-menu-btn, .cta-button, .submit-btn, .contact-detail, .profile-photo');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorFollower.classList.add('hover-effect');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursorFollower.classList.remove('hover-effect');
+            });
+        });
+
         // Mobile Menu Toggle with Animation
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -1048,7 +1154,6 @@
             });
         });
 
-
         // Form Validation and Enhancement
         const contactForm = document.querySelector('.contact-form');
         const submitBtn = document.querySelector('.submit-btn');
@@ -1105,30 +1210,7 @@
                 parallax.style.transform = `translateY(${rate}px)`;
             }
         });
-
-        // Auto-play simple melody on page load (visual only)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const melody = ['C', 'E', 'G', 'E'];
-                let noteIndex = 0;
-                
-                const playMelody = () => {
-                    if (noteIndex < melody.length) {
-                        const key = document.querySelector(`[data-note="${melody[noteIndex]}"]`);
-                        if (key) {
-                            key.classList.add('pressed');
-                            setTimeout(() => {
-                                key.classList.remove('pressed');
-                            }, 300);
-                        }
-                        noteIndex++;
-                        setTimeout(playMelody, 400);
-                    }
-                };
-                
-                playMelody();
-            }, 2000);
-        });
+     
 
         // WhatsApp Contact (Alternative contact method)
         function openWhatsApp() {
@@ -1138,29 +1220,6 @@
             window.open(url, '_blank');
         }
 
-        // Easter Egg: Konami Code for special animation
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
-        
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.code);
-            if (konamiCode.length > konamiSequence.length) {
-                konamiCode.shift();
-            }
-            
-            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-                // Special piano animation
-                document.querySelectorAll('.piano-key').forEach((key, index) => {
-                    setTimeout(() => {
-                        key.classList.add('pressed');
-                        setTimeout(() => key.classList.remove('pressed'), 200);
-                    }, index * 100);
-                });
-                
-                // Reset code
-                konamiCode = [];
-            }
-        });
     </script>
 </body>
 </html>
