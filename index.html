@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lelia Hernández - Klavierunterricht in Hannover</title>
+    <meta name="description" content="Klavierunterricht in Hannover für alle Altersstufen. Klassik, Rock, Pop - Ihre Lieblingssongs auf dem Klavier mit Lelia Hernández.">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #f8f9fa;
+            --accent-color: #e74c3c;
+            --text-dark: #333;
+            --text-light: #666;
+            --piano-black: #1a1a1a;
+            --piano-white: #ffffff;
+            --gold: #d4af37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--piano-white);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header-scrolled {
+            padding: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="piano" patternUnits="userSpaceOnUse" width="100" height="20"><rect width="100" height="20" fill="white" opacity="0.03"/><rect x="0" y="0" width="14.28" height="20" fill="black" opacity="0.05"/><rect x="28.56" y="0" width="14.28" height="20" fill="black" opacity="0.05"/><rect x="57.12" y="0" width="14.28" height="20" fill="black" opacity="0.05"/><rect x="85.68" y="0" width="14.28" height="20" fill="black" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23piano)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            background: #c0392b;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        /* About Section */
+        .about {
+            background: var(--secondary-color);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 300px;
+            height: 400px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            border: 4px solid white;
+        }
+
+        .profile-photo:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 80px 0;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .video-player {
+            position: relative;
+            max-width: 400px;
+            margin: 2rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            background: var(--piano-black);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .video-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .video-player:hover .video-overlay {
+            background: rgba(0,0,0,0.2);
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+        }
+
+        .video-player:hover .play-button {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .video-modal video {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 15px;
+        }
+
+        .close-video {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-video:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .video-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .video-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--secondary-color);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .contact-detail:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-detail strong {
+            color: var(--primary-color);
+            margin-right: 1rem;
+            min-width: 80px;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 1rem;
+            }
+
+            .piano-illustration {
+                width: 250px;
+                height: 160px;
+            }
+
+            .profile-photo {
+                width: 250px;
+                height: 330px;
+            }
+
+            .video-player {
+                max-width: 300px;
+            }
+
+            .video-thumbnail {
+                height: 500px;
+            }
+
+            .video-modal-content {
+                max-width: 95%;
+                max-height: 85%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="#home" class="logo">Lelia Hernández</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Start</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#services">Unterricht</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Klavierunterricht in Hannover</h1>
+            <p class="subtitle">Klassik, Rock, Pop - Ihre Lieblingssongs auf dem Klavier</p>
+            <a href="#contact" class="cta-button">Kostenlose Schnupperstunde</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="fade-in">
+            <h2 class="section-title">Über mich</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Herzlich willkommen! Mein Name ist Lelia Hernández San Martín und ich erteile mit Freude Klavierunterricht in Hannover. Seit einigen Jahren gebe ich Einzelunterricht für Schülerinnen und Schüler jeder Altersstufe.</p>
+                    
+                    <p>Geboren und aufgewachsen in Santiago de Chile, lebe ich seit 1988 in Hannover. Meine musikalische Reise begann bereits im Alter von vier Jahren mit den ersten Klavierstunden bei meiner Mutter, die selbst Konzertpianistin war.</p>
+                    
+                    <p>Mit 17 Jahren begann ich mein Studium als Pianistin an der katholischen Universität Santiago de Chile und erhielt mit 18 Jahren ein Stipendium in Spanien. Durch Masterklassen bei renommierten Pianisten wie Lev Vlasenco, Joaquín Soriano und Roberto Bravo konnte ich meine Fähigkeiten stetig erweitern.</p>
+                    
+                    <p>Meine freiberufliche Tätigkeit als Klavierlehrerin begann zeitgleich mit meinem Studium an der Hochschule für Musik und Theater in Hannover. Mir ist es wichtig, dass meine Schülerinnen und Schüler Spaß am Klavierspiel haben - denn nur so wird der Erfolg kommen!</p>
+                </div>
+                <div class="about-image">
+                    <img src="lelia-photo.webp" alt="Lelia Hernández am Klavier" class="profile-photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="fade-in">
+            <h2 class="section-title">Mein Unterrichtsangebot</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎹</div>
+                    <h3>Einzelunterricht</h3>
+                    <p>Persönlicher Klavierunterricht für alle Altersstufen. Der Unterricht wird individuell an Ihre Interessen und Ihr Niveau angepasst - egal ob Klassik, Rock oder Pop.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Hausbesuche</h3>
+                    <p>Gerne komme ich zu Ihnen nach Hause, damit Sie in gewohnter Umgebung lernen können. Alternativ steht ein Lehrraum mit Flügel, Klavier und E-Piano zur Verfügung.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Online-Unterricht</h3>
+                    <p>Flexible Online-Lektionen über Skype ermöglichen es, auch von zuhause aus professionellen Klavierunterricht zu erhalten.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎼</div>
+                    <h3>Alle Stilrichtungen</h3>
+                    <p>Von klassischer Musik bis hin zu modernen Pop- und Rock-Songs - gemeinsam bringen wir Ihre Lieblingsstücke auf das Klavier!</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Schnupperstunde</h3>
+                    <p>Lernen Sie mich und meinen Unterrichtsstil bei einer kostenlosen Schnupperstunde kennen. So können wir schauen, ob die Chemie stimmt!</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Individuelle Förderung</h3>
+                    <p>Jeder Schüler ist einzigartig. Mein Unterricht passt sich an Ihr persönliches Tempo und Ihre musikalischen Ziele an.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="fade-in">
+            <h2 class="section-title">Kontakt</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Lelia Hernández San Martín</h3>
+                    <p>Ich freue mich auf Ihre Nachricht! Gerne gebe ich Ihnen eine kostenlose Schnupperstunde zum Kennenlernen. Kontaktieren Sie mich einfach über das Formular oder direkt per Telefon.</p>
+                    
+                    <div class="contact-detail">
+                        <strong>📍 Adresse:</strong>
+                        <span>30177 Hannover</span>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <strong>📞 Telefon:</strong>
+                        <span><a href="tel:0511629305" style="color: inherit; text-decoration: none;">0511/629305</a></span>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <strong>🎼 Unterricht:</strong>
+                        <span>Hausbesuch oder im Lehrraum</span>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <strong>💻 Online:</strong>
+                        <span>Skype-Lektionen verfügbar</span>
+                    </div>
+                </div>
+                
+                <form class="contact-form" action="https://formspree.io/f/xeojwpjl" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-Mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Betreff</label>
+                        <input type="text" id="subject" name="subject" placeholder="z.B. Interesse an Klavierunterricht">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Nachricht *</label>
+                        <textarea id="message" name="message" placeholder="Erzählen Sie mir gerne etwas über sich: Alter, Vorerfahrung, musikalische Wünsche..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Nachricht senden</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Lelia Hernández - Klavierunterricht Hannover. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu after click
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Fade-in Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -100px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        fadeElements.forEach(element => {
+            appearOnScroll.observe(element);
+        });
+
+        // Video Player Functionality
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoModal = document.getElementById('videoModal');
+        const mainVideo = document.getElementById('mainVideo');
+        const closeVideo = document.getElementById('closeVideo');
+
+        videoPlayer.addEventListener('click', () => {
+            videoModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Start playing video when modal opens
+            setTimeout(() => {
+                mainVideo.play().catch(e => {
+                    console.log('Auto-play prevented:', e);
+                });
+            }, 300);
+        });
+
+        closeVideo.addEventListener('click', closeVideoModal);
+        
+        // Close video when clicking outside
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+
+        // Close video with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeVideoModal();
+            }
+        });
+
+        function closeVideoModal() {
+            videoModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            mainVideo.pause();
+            mainVideo.currentTime = 0; // Reset video to beginning
+        }
+
+        // Auto-close video when it ends
+        mainVideo.addEventListener('ended', () => {
+            setTimeout(closeVideoModal, 2000); // Close 2 seconds after video ends
+        });
+
+        // Form Validation and Enhancement
+        const contactForm = document.querySelector('.contact-form');
+        const submitBtn = document.querySelector('.submit-btn');
+
+        contactForm.addEventListener('submit', function(e) {
+            submitBtn.innerHTML = 'Wird gesendet...';
+            submitBtn.disabled = true;
+            
+            // Re-enable after form submission
+            setTimeout(() => {
+                submitBtn.innerHTML = 'Nachricht senden';
+                submitBtn.disabled = false;
+            }, 3000);
+        });
+
+        // Enhanced form interaction
+        document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add some subtle animations to service cards
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // WhatsApp Contact (Alternative contact method)
+        function openWhatsApp() {
+            const phone = '491629305'; // Format for international WhatsApp
+            const message = 'Hallo Lelia, ich interessiere mich für Klavierunterricht!';
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Add WhatsApp button if needed (can be activated by uncommenting)
+        // const whatsappBtn = document.createElement('div');
+        // whatsappBtn.innerHTML = '💬';
+        // whatsappBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:1000;transition:all 0.3s ease;';
+        // whatsappBtn.addEventListener('click', openWhatsApp);
+        // whatsappBtn.addEventListener('mouseenter', () => whatsappBtn.style.transform = 'scale(1.1)');
+        // whatsappBtn.addEventListener('mouseleave', () => whatsappBtn.style.transform = 'scale(1)');
+        // document.body.appendChild(whatsappBtn);
+    </script>
+</body>
+</html>
