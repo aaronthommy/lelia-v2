@@ -112,7 +112,17 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 5px;
+            padding: 8px;
+            z-index: 1001;
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255,255,255,1);
+            transform: scale(1.05);
         }
 
         .mobile-menu-btn span {
@@ -120,7 +130,21 @@
             height: 3px;
             background: var(--primary-color);
             margin: 3px 0;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: center;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
         }
 
         /* Hero Section */
@@ -272,154 +296,132 @@
             box-shadow: 0 30px 60px rgba(212, 175, 55, 0.2);
         }
 
-        /* Video Section */
-        .video-section {
+        /* FAQ Section */
+        .faq {
             padding: 80px 0;
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
         }
 
-        .video-container {
+        .faq-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
-        .video-player {
-            position: relative;
-            max-width: 400px;
-            margin: 2rem auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            background: var(--piano-black);
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .video-player:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-        }
-
-        .video-thumbnail {
-            width: 100%;
-            height: 600px;
-            object-fit: cover;
-            transition: all 0.4s ease;
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .video-player:hover .video-overlay {
-            background: rgba(0,0,0,0.2);
-        }
-
-        .play-button {
-            width: 80px;
-            height: 80px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            color: var(--primary-color);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255,255,255,0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-        }
-
-        .video-player:hover .play-button {
-            transform: scale(1.1);
+        .faq-item {
             background: white;
-        }
-
-        .video-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-modal.active {
-            display: flex;
-        }
-
-        .video-modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .video-modal video {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 90vh;
+            margin-bottom: 1rem;
             border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        .close-video {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: white;
+        .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #ffffff 100%);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
             color: var(--primary-color);
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;
+            text-align: left;
             transition: all 0.3s ease;
         }
 
-        .close-video:hover {
+        .faq-question:hover {
+            color: var(--accent-color);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            color: var(--accent-color);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Enhanced Service Cards with Pricing */
+        .service-card.pricing {
+            background: linear-gradient(135deg, white 0%, var(--secondary-color) 100%);
+            border: 2px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card.pricing::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(231, 76, 60, 0.05), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .service-card.pricing:hover::before {
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        .price-tag {
             background: var(--accent-color);
             color: white;
-            transform: scale(1.1);
-        }
-
-        .video-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .video-description {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
             font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 1rem 0;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating Elements Animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .floating.delay-1 { animation-delay: 0.5s; }
+        .floating.delay-2 { animation-delay: 1s; }
+        .floating.delay-3 { animation-delay: 1.5s; }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Services Section */
@@ -594,16 +596,90 @@
                 display: none;
                 position: absolute;
                 top: 100%;
-                left: 0;
-                width: 100%;
-                background: white;
+                left: 50%;
+                transform: translateX(-50%) translateY(-10px);
+                width: 95%;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-                padding: 1rem 0;
+                border-radius: 20px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+                padding: 1.5rem 0;
+                border: 1px solid rgba(255,255,255,0.2);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             }
 
             .nav-links.active {
                 display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .nav-links li {
+                margin: 0;
+                opacity: 0;
+                transform: translateY(20px);
+                animation: slideInNav 0.4s ease-out forwards;
+            }
+
+            .nav-links.active li:nth-child(1) { animation-delay: 0.1s; }
+            .nav-links.active li:nth-child(2) { animation-delay: 0.2s; }
+            .nav-links.active li:nth-child(3) { animation-delay: 0.3s; }
+            .nav-links.active li:nth-child(4) { animation-delay: 0.4s; }
+            .nav-links.active li:nth-child(5) { animation-delay: 0.5s; }
+
+            @keyframes slideInNav {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                margin: 0.2rem 1rem;
+                color: var(--primary-color);
+                font-weight: 600;
+                text-align: center;
+                border-radius: 15px;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .nav-links a::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, 
+                    transparent, 
+                    rgba(231, 76, 60, 0.1), 
+                    transparent);
+                transition: left 0.6s ease;
+            }
+
+            .nav-links a:hover {
+                background: linear-gradient(135deg, 
+                    rgba(231, 76, 60, 0.1) 0%, 
+                    rgba(231, 76, 60, 0.05) 100%);
+                color: var(--accent-color);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(231, 76, 60, 0.2);
+            }
+
+            .nav-links a:hover::before {
+                left: 100%;
+            }
+
+            .nav-links a::after {
+                display: none;
             }
 
             .mobile-menu-btn {
@@ -642,17 +718,8 @@
                 height: 330px;
             }
 
-            .video-player {
-                max-width: 300px;
-            }
-
-            .video-thumbnail {
-                height: 500px;
-            }
-
-            .video-modal-content {
-                max-width: 95%;
-                max-height: 85%;
+            .faq-container {
+                padding: 0 1rem;
             }
         }
 
@@ -680,6 +747,7 @@
                 <li><a href="#home">Start</a></li>
                 <li><a href="#about">Über mich</a></li>
                 <li><a href="#services">Unterricht</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Kontakt</a></li>
             </ul>
             <div class="mobile-menu-btn" id="mobileMenuBtn">
@@ -724,33 +792,38 @@
     <section id="services">
         <div class="fade-in">
             <h2 class="section-title">Mein Unterrichtsangebot</h2>
+            
+        
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card pricing floating">
                     <div class="service-icon">🎹</div>
                     <h3>Einzelunterricht</h3>
+                    <div class="price-tag">45€ / 60 Min</div>
                     <p>Persönlicher Klavierunterricht für alle Altersstufen. Der Unterricht wird individuell an Ihre Interessen und Ihr Niveau angepasst - egal ob Klassik, Rock oder Pop.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card floating delay-1">
                     <div class="service-icon">🏠</div>
                     <h3>Hausbesuche</h3>
                     <p>Gerne komme ich zu Ihnen nach Hause, damit Sie in gewohnter Umgebung lernen können. Alternativ steht ein Lehrraum mit Flügel, Klavier und E-Piano zur Verfügung.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card pricing floating delay-2">
                     <div class="service-icon">💻</div>
                     <h3>Online-Unterricht</h3>
+                    <div class="price-tag">40€ / 60 Min</div>
                     <p>Flexible Online-Lektionen über Skype ermöglichen es, auch von zuhause aus professionellen Klavierunterricht zu erhalten.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card floating delay-3">
                     <div class="service-icon">🎼</div>
                     <h3>Alle Stilrichtungen</h3>
                     <p>Von klassischer Musik bis hin zu modernen Pop- und Rock-Songs - gemeinsam bringen wir Ihre Lieblingsstücke auf das Klavier!</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card pricing floating">
                     <div class="service-icon">✨</div>
                     <h3>Schnupperstunde</h3>
+                    <div class="price-tag">Kostenlos!</div>
                     <p>Lernen Sie mich und meinen Unterrichtsstil bei einer kostenlosen Schnupperstunde kennen. So können wir schauen, ob die Chemie stimmt!</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card floating delay-1">
                     <div class="service-icon">🎯</div>
                     <h3>Individuelle Förderung</h3>
                     <p>Jeder Schüler ist einzigartig. Mein Unterricht passt sich an Ihr persönliches Tempo und Ihre musikalischen Ziele an.</p>
@@ -759,7 +832,73 @@
         </div>
     </section>
 
-   
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="fade-in">
+            <h2 class="section-title">Häufige Fragen</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Brauche ich ein eigenes Klavier zum Lernen?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Für den Anfang reicht auch ein Keyboard mit 88 gewichteten Tasten. Langfristig ist ein akustisches Klavier oder ein hochwertiges Digitalpiano empfehlenswert. Gerne berate ich Sie beim Kauf eines geeigneten Instruments.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Ab welchem Alter können Kinder mit dem Klavierspielen beginnen?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Grundsätzlich können Kinder ab 5-6 Jahren anfangen. Wichtig ist, dass sie sich etwa 30 Minuten konzentrieren können und ihre Hände groß genug sind, um die Tasten zu erreichen. Jedes Kind ist individuell - gerne schauen wir das in einer Schnupperstunde zusammen an.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie oft sollte Unterricht stattfinden?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Optimal ist einmal wöchentlich für kontinuierlichen Fortschritt. Bei Erwachsenen kann auch alle zwei Wochen sinnvoll sein. Wichtiger als die Häufigkeit ist das regelmäßige Üben zwischen den Stunden - schon 15-20 Minuten täglich bringen viel!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Kann ich auch ohne Notenkenntnisse anfangen?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolut! Viele meiner Schüler starten ohne jede Vorerfahrung. Wir beginnen mit einfachen Melodien und lernen die Noten Schritt für Schritt. Auch das Spielen nach Gehör und Akkorden ist möglich - je nach Ihren musikalischen Zielen.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie lange dauert es, bis ich meine Lieblingssongs spielen kann?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Das hängt von der Komplexität des Songs und Ihrer Übungszeit ab. Einfache Pop-Songs können Sie oft schon nach wenigen Monaten in vereinfachter Form spielen. Komplexere Stücke brauchen etwas mehr Zeit, aber der Weg dorthin macht schon viel Spaß!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
@@ -829,12 +968,13 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle with Animation
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
 
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
         });
 
         // Header Scroll Effect
@@ -860,6 +1000,7 @@
                 }
                 // Close mobile menu after click
                 navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
             });
         });
 
@@ -886,51 +1027,27 @@
             appearOnScroll.observe(element);
         });
 
-        // Video Player Functionality
-        const videoPlayer = document.getElementById('videoPlayer');
-        const videoModal = document.getElementById('videoModal');
-        const mainVideo = document.getElementById('mainVideo');
-        const closeVideo = document.getElementById('closeVideo');
-
-        videoPlayer.addEventListener('click', () => {
-            videoModal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-            
-            // Start playing video when modal opens
-            setTimeout(() => {
-                mainVideo.play().catch(e => {
-                    console.log('Auto-play prevented:', e);
-                });
-            }, 300);
-        });
-
-        closeVideo.addEventListener('click', closeVideoModal);
+        // FAQ Accordion Functionality
+        const faqItems = document.querySelectorAll('.faq-item');
         
-        // Close video when clicking outside
-        videoModal.addEventListener('click', (e) => {
-            if (e.target === videoModal) {
-                closeVideoModal();
-            }
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all FAQ items
+                faqItems.forEach(faqItem => {
+                    faqItem.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
         });
 
-        // Close video with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
-                closeVideoModal();
-            }
-        });
-
-        function closeVideoModal() {
-            videoModal.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
-            mainVideo.pause();
-            mainVideo.currentTime = 0; // Reset video to beginning
-        }
-
-        // Auto-close video when it ends
-        mainVideo.addEventListener('ended', () => {
-            setTimeout(closeVideoModal, 2000); // Close 2 seconds after video ends
-        });
 
         // Form Validation and Enhancement
         const contactForm = document.querySelector('.contact-form');
@@ -951,16 +1068,66 @@
         document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
             input.addEventListener('focus', function() {
                 this.parentElement.style.transform = 'translateY(-2px)';
+                this.parentElement.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
             });
             
             input.addEventListener('blur', function() {
                 this.parentElement.style.transform = 'translateY(0)';
+                this.parentElement.style.boxShadow = '';
             });
         });
 
-        // Add some subtle animations to service cards
+        // Dynamic Service Card Animations
         document.querySelectorAll('.service-card').forEach((card, index) => {
             card.style.animationDelay = `${index * 0.1}s`;
+            
+            // Add hover sound effect simulation
+            card.addEventListener('mouseenter', () => {
+                if (card.classList.contains('pricing')) {
+                    card.style.transform = 'translateY(-15px) scale(1.02)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                if (card.classList.contains('pricing')) {
+                    card.style.transform = '';
+                }
+            });
+        });
+
+        // Parallax Effect for Hero Section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero::before');
+            const rate = scrolled * -0.5;
+            
+            if (parallax) {
+                parallax.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Auto-play simple melody on page load (visual only)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const melody = ['C', 'E', 'G', 'E'];
+                let noteIndex = 0;
+                
+                const playMelody = () => {
+                    if (noteIndex < melody.length) {
+                        const key = document.querySelector(`[data-note="${melody[noteIndex]}"]`);
+                        if (key) {
+                            key.classList.add('pressed');
+                            setTimeout(() => {
+                                key.classList.remove('pressed');
+                            }, 300);
+                        }
+                        noteIndex++;
+                        setTimeout(playMelody, 400);
+                    }
+                };
+                
+                playMelody();
+            }, 2000);
         });
 
         // WhatsApp Contact (Alternative contact method)
@@ -971,14 +1138,29 @@
             window.open(url, '_blank');
         }
 
-        // Add WhatsApp button if needed (can be activated by uncommenting)
-        // const whatsappBtn = document.createElement('div');
-        // whatsappBtn.innerHTML = '💬';
-        // whatsappBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:1000;transition:all 0.3s ease;';
-        // whatsappBtn.addEventListener('click', openWhatsApp);
-        // whatsappBtn.addEventListener('mouseenter', () => whatsappBtn.style.transform = 'scale(1.1)');
-        // whatsappBtn.addEventListener('mouseleave', () => whatsappBtn.style.transform = 'scale(1)');
-        // document.body.appendChild(whatsappBtn);
+        // Easter Egg: Konami Code for special animation
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.code);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+                // Special piano animation
+                document.querySelectorAll('.piano-key').forEach((key, index) => {
+                    setTimeout(() => {
+                        key.classList.add('pressed');
+                        setTimeout(() => key.classList.remove('pressed'), 200);
+                    }, index * 100);
+                });
+                
+                // Reset code
+                konamiCode = [];
+            }
+        });
     </script>
 </body>
 </html>
